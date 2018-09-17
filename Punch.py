@@ -140,11 +140,12 @@ class Punch(object):
     def resolve(self,value):
         """Replace variables in a config entry with the actual value."""
         token = value.find('$')
-        if( token != -1 ):
+        while( token != -1 ):
             terminus = token + value[token:].find('/')
             ref = value[token+1:terminus]
             refValue = self.propDict[ref]
             value = refValue + value[terminus:]
+            token = value.find('$')
             
         return value
     
